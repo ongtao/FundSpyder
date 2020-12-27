@@ -1,9 +1,22 @@
+name: Validate 'setup-go'
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  schedule:
+    - cron: 0 0 * * *
+
 jobs:
   build:
     runs-on: ubuntu-16.04
     strategy:
       matrix:
-        go: [ '1.15', '1.14' ]
+        go: [ '1.14', '1.15' ]
     name: Go ${{ matrix.go }} sample
     steps:
       - uses: actions/checkout@v2
@@ -12,3 +25,4 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - run: go run main.go
+
